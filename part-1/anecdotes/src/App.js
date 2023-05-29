@@ -77,7 +77,10 @@ const anecdoteGenerator= () => {
       
      <MostVoted anecdotes={anecdotes} votes={votes}/>
 
-    </div>
+  
+
+    </
+    div>
   )
 }
 

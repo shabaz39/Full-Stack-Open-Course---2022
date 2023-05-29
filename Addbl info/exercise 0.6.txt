@@ -1,0 +1,43 @@
+title HTTP in SPA
+
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+server-->browser: HTML-code
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+server-->browser: spa.js
+
+note over browser:
+browser starts executing js-code
+that requests JSON data from server 
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{content: "test", date: "2022-02-12T19:55:24.567Z"},…]
+
+server-->browser: HTTPS status code 201 (displays data)
+note over browser:
+SPA - fetches only one HTML page from server and is manipulated wth JS that runs inside browser
+end note  
+
+note over browser:
+>document.getElementById('notes_form') - fetches 'form element' from page.
+>e.preventDefault() is added as a method to prevent default Submit and GET
+>event handler creates a new note, adds it to the notes list, rerenders the note list on the page and
+sends the new note to the server.
+end note 
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa (form data is sent)
+
+note over browser:
+POST request to the address new_note_spa contains the new note as JSON-data
+{content: "asdf", date: "2022-02-13T11:14:09.222Z"}
+end note
+
+server-->browser: [{ content: "asdf", date: "2022-02-13T11:14:09.222Z"} }, ...]
+
+
+

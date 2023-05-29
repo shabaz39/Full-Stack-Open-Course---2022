@@ -1,115 +1,83 @@
-import { useState } from 'react'
-
-const Button = (props)=> {
-  const {onPress} = props 
-  
-  return (
-    <button type= 'button' onClick={onPress}>
-      {props.text}
-    </button>
-  )
-
+ 
+const Course = () => {
+  return 
 }
 
-const StatisticLine = (props) => { 
-  
+const Header = ({course}) => {
+  return <h1>{course}</h1>
+}
+
+const Part = ({part}) => {
+  return (
+    <p>
+      {part.name} {part.exercises}
+    </p>
+  )
+}
+
+const Content = ({parts}) => {
   return (
     <div>
-      {props.text} {props.value} {props.symbol}
-    </div>
+    <Part part ={parts[0]} />
+    <Part part ={parts[1]} />
+    <Part part ={parts[2]} />
+    <Part part ={parts[3]} />
+    </div> 
   )
-
 }
- 
 
-const Statistics = (props) => {
 
-   if (props.newAllValue === 0) {
-    return (
-      <div>
-        No feedback given
-      </div>
-    )
-  }
- 
+const Total = ({parts}) => {
   return (
-    <div> 
-      <table>
-        <tbody>
-     
-        <tr><td><StatisticLine text ='good'/> </td><td><StatisticLine value={props.newGoodValue}/></td></tr>
-        <tr><td><StatisticLine text ='neutral'/> </td><td><StatisticLine value={props.newNeutralValue}/></td></tr>
-        <tr><td><StatisticLine text ='bad'/> </td><td><StatisticLine value={props.newBadValue}/></td></tr>
-        <tr><td><StatisticLine text ='all'/> </td><td><StatisticLine value={props.newAllValue}/></td></tr>
-        <tr><td><StatisticLine text ='average'/></td><td><StatisticLine value={props.averageValue}/></td></tr>
-        <tr><td><StatisticLine text ='positive feedback'/></td><td><StatisticLine value={props.postiveFeedback}symbol='%'/></td></tr>
-        </tbody> 
-     
-      </table>
-    
-      
-    </div>
+ 
+       <h4> total of{" "} {parts[0].exercises + parts[1].exercises + parts[2].exercises + parts[3].exercises} exercises 
+       </h4>
+  
   )
 }
+
 
 const App = () => {
-  const [goodValue, setGoodValue] = useState(0)
-  const [neutralValue, setNeutralValue] = useState(0)
-  const [badvalue, setBadValue] = useState(0)
-  const [scoreValue, setScoreValue] = useState(0)
- 
-
-const setToGoodValue = (newValue) => {
-    console.log('Good', newValue) 
-  setGoodValue(newValue)
-}
-
-const setToNeutralValue = (newValue) => {
-  console.log('Neutral', newValue) 
-  setNeutralValue(newValue)
-}
-
-const setToBadValue = (newValue) => {
-  console.log('Bad', newValue) 
-  setBadValue(newValue)
-}
-
-const goodFunc= () => {
-  setToGoodValue(goodValue + 1)
-  setScoreValue(scoreValue + 1)
-}
-
-const badFunc= () => {
-      setToBadValue(badvalue + 1) 
-      setScoreValue(scoreValue - 1)}
-
-const neutralFunc=() =>{ 
- setToNeutralValue(neutralValue + 1)
-}
+  const course = {
+    id: 1,
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
+      }
+    ]
+  }
 
   return (
-    <div>
-      <div> 
-        <h1> give feedback </h1>    
-        <Button onPress={goodFunc} text={'good'}/>
-        <Button onPress={neutralFunc} text={'Neutral'}/>
-        <Button onPress={badFunc} text={'bad'}/>
-        
-        
-      </div>
-
-      <div> 
-        <h1> statistics </h1>
-        <Statistics newGoodValue={goodValue} newNeutralValue={neutralValue} newBadValue={badvalue}  newAllValue={goodValue+neutralValue+badvalue} averageValue= {(scoreValue) / (goodValue+neutralValue+badvalue) }  postiveFeedback={((goodValue) / (goodValue+neutralValue+badvalue))*100} />
-        
-
-      </div>
+    
+    <div> 
+    <Header course={course.name} />
+    <Content parts = {course.parts} />
+    <Total parts = {course.parts} />
 
     </div>
+   
+
+    )
 
    
-  )
 }
-
 
 export default App
