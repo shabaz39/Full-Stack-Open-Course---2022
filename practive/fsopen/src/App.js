@@ -132,6 +132,7 @@ const App = () => {
         newSearch={newSearch}
         handleDeletePerson={handleDeletePerson}
       />
+       
     </div>
   );
 };
