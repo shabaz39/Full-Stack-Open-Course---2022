@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import NewPerson from "./components/AddPerson";
 import FilterPerson from "./components/FilterPerson";
-import Persons from "./components/Persons";
-import personDB from "./services/personDB";
+import Persons from "./components/Persons.js";
+import personDB from "./services/personDB.js";
 import Notification from "./components/Notification";
 
 const App = () => {

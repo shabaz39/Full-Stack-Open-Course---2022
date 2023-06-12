@@ -1,8 +1,22 @@
 const express = require('express')
 const app = express()
 const persons = require('./data')
+const morgan = require('morgan')
+const cors = require('cors')
 
 app.use(express.json());
+app.use(cors())
+
+morgan.token('requestData', (req, res) => {
+    return JSON.stringify(req.body);
+  });
+
+  const customLogFormat = ':method :url :status :response-time ms - :res[content-length] :requestData';
+  app.use(morgan(customLogFormat));
+
+app.get('/', function (req, res) {
+    res.send('hello, world!')
+  })
 
 app.get('/', (request,response) => {
     response.send('<h1>Hello world!</h1>')
@@ -79,7 +93,6 @@ app.delete('/api/persons/:id', (request,response) => {
    
 })
 
-
-const PORT = 5000
+const PORT = 5001
 app.listen(PORT)
 console.log(`Server is running on ${PORT}`)
